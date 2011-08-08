@@ -1,0 +1,27 @@
+<h1>Listing imports</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>File</th>
+    <th>Processed at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @imports.each do |import| %>
+  <tr>
+    <td><%= import.user %></td>
+    <td><%= import.file %></td>
+    <td><%= import.processed_at %></td>
+    <td><%= link_to 'Show', import %></td>
+    <td><%= link_to 'Edit', edit_import_path(import) %></td>
+    <td><%= link_to 'Destroy', import, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Import', new_import_path %>

@@ -11,10 +11,15 @@ class Bookmark < ActiveRecord::Base
     text :raw_content
     integer :user_id
     date :created_month
+    date :created_day
   end
 
   def created_month
     Date.new created_at.year, created_at.month, 1
+  end
+
+  def created_day
+    created_at.to_date
   end
 
   def generate_uri_digest

@@ -1,0 +1,13 @@
+<%= simple_form_for(@import) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.association :user %>
+    <%= f.input :file, :as => :file %>
+    <%= f.input :processed_at %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

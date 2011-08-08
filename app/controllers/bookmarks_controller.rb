@@ -3,15 +3,21 @@ class BookmarksController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @search = Bookmark.includes(:tags).search do
+    @search = Bookmark.search(:include => [:tags]) do
       fulltext params[:q]
       with(:user_id, current_user.id)
       facet(:created_month, :sort => :index)
       with(:created_month, params[:month]) if params[:month].present?
+      facet(:created_day, :sort => :index) if params[:month].present?
+      with(:created_day, params[:day]) if params[:day].present?
+      paginate :page => params[:page], :per_page => 25
     end
 
-    @bookmarks = @search.results
-    respond_with @bookmarks
+    # @bookmarks = @search.results
+    # @bookmarks = current_user.bookmarks.page params[:page]
+    # @bookmarks
+
+    respond_with @search
   end
 
   def show
@@ -25,7 +31,7 @@ class BookmarksController < ApplicationController
   end
 
   def edit
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = current_user.bookmarks.find(params[:id])
     respond_with @bookmark
   end
 

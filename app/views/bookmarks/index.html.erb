@@ -8,18 +8,34 @@
 <% end %>
 
 <div id="facets">
-  <h3>Timeline</h3>
+  <h3>Published</h3>
   <ul>
     <% for row in @search.facet(:created_month).rows.reverse! %>
       <li>
         <% if params[:month].blank? %>
-          <%= link_to row.value.strftime("%B %Y"), :month => row.value %> (<%= row.count %>)
+          <%= link_to row.value.strftime("%Y %B"), :month => row.value %> (<%= row.count %>)
         <% else %>
           <strong><%= row.value %></strong> (<%= link_to "remove", :month => nil %>)
         <% end %>
       </li>
     <% end %>
   </ul>
+
+  <% if @search.facet(:created_day) %>
+  <ul>
+    <% for row in @search.facet(:created_day).rows.reverse! %>
+      <li>
+        <% if params[:day].blank? %>
+          <%= link_to row.value, :day => row.value %> (<%= row.count %>)
+        <% else %>
+          <strong><%= row.value %></strong> (<%= link_to "remove", :day => nil %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% end %>
+
 </div>
 
 <table>
@@ -31,16 +47,18 @@
     <th></th>
   </tr>
 
-<% @bookmarks.each do |bookmark| %>
+<% @search.results.each do |bookmark| %>
   <tr>
     <td><a href="<%= bookmark.uri %>"><%= bookmark.title %></a></td>
-    <td><%# bookmark.tag_list %></td>
+    <td><%= bookmark.tags.map(&:name) %></td>
     <td><%= link_to 'Show', bookmark %></td>
     <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
     <td><%= link_to 'Destroy', bookmark, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
+
+<%= paginate @search %>
 
 <br />
 

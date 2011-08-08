@@ -21,8 +21,10 @@ gem 'simple_form'
 gem 'acts-as-taggable-on'
 gem 'nokogiri'
 gem 'sunspot_rails'
+gem "sunspot_with_kaminari", '~> 0.1'
 gem 'kaminari'
 gem 'resque', :require => "resque/server"
+gem "carrierwave"
 
 # Use unicorn as the web server
 # gem 'unicorn'

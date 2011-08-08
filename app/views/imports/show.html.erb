@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @import.user %>
+</p>
+
+<p>
+  <b>File:</b>
+  <%= @import.file %>
+</p>
+
+<p>
+  <b>Processed at:</b>
+  <%= @import.processed_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_import_path(@import) %> |
+<%= link_to 'Back', imports_path %>
