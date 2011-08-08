@@ -1,0 +1,17 @@
+<%= simple_form_for(@bookmark) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :uri %>
+    <%= f.input :uri_digest %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :is_private %>
+    <%= f.input :is_starred %>
+    <%= f.input :is_unread %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

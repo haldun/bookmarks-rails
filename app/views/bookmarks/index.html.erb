@@ -1,0 +1,37 @@
+<h1>Listing bookmarks</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Uri</th>
+    <th>Uri digest</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Is private</th>
+    <th>Is starred</th>
+    <th>Is unread</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bookmarks.each do |bookmark| %>
+  <tr>
+    <td><%= bookmark.user %></td>
+    <td><%= bookmark.uri %></td>
+    <td><%= bookmark.uri_digest %></td>
+    <td><%= bookmark.title %></td>
+    <td><%= bookmark.description %></td>
+    <td><%= bookmark.is_private %></td>
+    <td><%= bookmark.is_starred %></td>
+    <td><%= bookmark.is_unread %></td>
+    <td><%= link_to 'Show', bookmark %></td>
+    <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
+    <td><%= link_to 'Destroy', bookmark, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bookmark', new_bookmark_path %>
