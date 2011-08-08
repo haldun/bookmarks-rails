@@ -18,6 +18,11 @@ end
 
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'acts-as-taggable-on'
+gem 'nokogiri'
+gem 'sunspot_rails'
+gem 'kaminari'
+gem 'resque', :require => "resque/server"
 
 # Use unicorn as the web server
 # gem 'unicorn'

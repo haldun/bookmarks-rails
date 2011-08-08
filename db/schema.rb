@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110808101254) do
+ActiveRecord::Schema.define(:version => 20110808113829) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -18,9 +18,12 @@ ActiveRecord::Schema.define(:version => 20110808101254) do
     t.string   "uri_digest"
     t.string   "title"
     t.text     "description"
-    t.boolean  "is_private"
-    t.boolean  "is_starred"
-    t.boolean  "is_unread"
+    t.boolean  "is_private",   :default => false
+    t.boolean  "is_starred",   :default => false
+    t.boolean  "is_unread",    :default => false
+    t.text     "raw_content"
+    t.text     "text_content"
+    t.datetime "cached_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +33,23 @@ ActiveRecord::Schema.define(:version => 20110808101254) do
   add_index "bookmarks", ["is_unread"], :name => "index_bookmarks_on_is_unread"
   add_index "bookmarks", ["uri_digest"], :name => "index_bookmarks_on_uri_digest"
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

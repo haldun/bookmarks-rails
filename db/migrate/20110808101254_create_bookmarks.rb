@@ -6,9 +6,12 @@ class CreateBookmarks < ActiveRecord::Migration
       t.string :uri_digest
       t.string :title
       t.text :description
-      t.boolean :is_private
-      t.boolean :is_starred
-      t.boolean :is_unread
+      t.boolean :is_private, :default => false
+      t.boolean :is_starred, :default => false
+      t.boolean :is_unread, :default => false
+      t.text :raw_content
+      t.text :text_content
+      t.datetime :cached_at
 
       t.timestamps
     end

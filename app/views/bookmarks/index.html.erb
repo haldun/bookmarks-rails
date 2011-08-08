@@ -1,15 +1,31 @@
 <h1>Listing bookmarks</h1>
 
+<%= form_tag bookmarks_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<div id="facets">
+  <h3>Timeline</h3>
+  <ul>
+    <% for row in @search.facet(:created_month).rows.reverse! %>
+      <li>
+        <% if params[:month].blank? %>
+          <%= link_to row.value.strftime("%B %Y"), :month => row.value %> (<%= row.count %>)
+        <% else %>
+          <strong><%= row.value %></strong> (<%= link_to "remove", :month => nil %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
 <table>
   <tr>
-    <th>User</th>
-    <th>Uri</th>
-    <th>Uri digest</th>
     <th>Title</th>
-    <th>Description</th>
-    <th>Is private</th>
-    <th>Is starred</th>
-    <th>Is unread</th>
+    <th>Tags</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,14 +33,8 @@
 
 <% @bookmarks.each do |bookmark| %>
   <tr>
-    <td><%= bookmark.user %></td>
-    <td><%= bookmark.uri %></td>
-    <td><%= bookmark.uri_digest %></td>
-    <td><%= bookmark.title %></td>
-    <td><%= bookmark.description %></td>
-    <td><%= bookmark.is_private %></td>
-    <td><%= bookmark.is_starred %></td>
-    <td><%= bookmark.is_unread %></td>
+    <td><a href="<%= bookmark.uri %>"><%= bookmark.title %></a></td>
+    <td><%# bookmark.tag_list %></td>
     <td><%= link_to 'Show', bookmark %></td>
     <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
     <td><%= link_to 'Destroy', bookmark, confirm: 'Are you sure?', method: :delete %></td>
