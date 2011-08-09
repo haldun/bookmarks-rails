@@ -7,7 +7,7 @@ class Bookmark < ActiveRecord::Base
 
   searchable do
     text :title, :boost => 5
-    text :tag_list, :boost => 2
+    string :tag_list, :multiple => true
     text :raw_content
     integer :user_id
     date :created_month

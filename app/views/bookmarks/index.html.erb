@@ -35,8 +35,13 @@
 
   <% end %>
 
+  <h3>Tags</h3>
   <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-    <%= link_to tag.name, bookmarks_path(:q => tag.name), :class => css_class %>
+    <%= link_to tag.name, bookmarks_path(:tags => tag.name), :class => css_class %>
+    <% if params[:tags].present? %>
+      <%= link_to '⊕', bookmarks_path(:tags => raw(params[:tags] + ',' + tag.name)) %>
+    <% end -%>
+    ・
   <% end %>
 </div>
 
@@ -46,6 +51,14 @@
 
 <% if params[:day] %>
   <h2><%= params[:day].to_date.strftime '%e %B %Y' %></h2>
+<% end -%>
+
+<% if params[:tags] %>
+  <h2><%= params[:tags].split(',').join(', ') %></h2>
+<% end -%>
+
+<% if params[:q] %>
+  <h2>“<%= params[:q] %>”</h2>
 <% end -%>
 
 <table>
