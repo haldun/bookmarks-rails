@@ -1,14 +1,30 @@
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
   font-size: 13px;
   line-height: 18px; }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
   font-size: 13px;
   line-height: 18px; }
+
+h1, h2, h3 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.4em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
 
 pre {
   background-color: #eee;
@@ -16,12 +32,12 @@ pre {
   font-size: 11px; }
 
 a {
-  color: #000;
+  color: blue;
   &:visited {
     color: #666; }
   &:hover {
-    color: #fff;
-    background-color: #000; } }
+    color: #0080FF;
+     } }
 
 div {
   &.field, &.actions {

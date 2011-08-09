@@ -1,5 +1,3 @@
-<h1>Listing bookmarks</h1>
-
 <%= form_tag bookmarks_path, :method => :get do %>
   <p>
     <%= search_field_tag :q, params[:q], :size => 120 %>
@@ -42,6 +40,14 @@
   <% end %>
 </div>
 
+<% if params[:month] %>
+  <h2><%= params[:month].to_date.strftime '%B %Y' %></h2>
+<% end -%>
+
+<% if params[:day] %>
+  <h2><%= params[:day].to_date.strftime '%e %B %Y' %></h2>
+<% end -%>
+
 <table>
   <tr>
     <th width="90%"></th>
@@ -52,7 +58,15 @@
 
 <% @search.results.each do |bookmark| %>
   <tr>
-    <td><a href="<%= bookmark.uri %>"><%= truncate bookmark.title, :length => 70 %></a></td>
+    <td>
+      <% if bookmark.is_starred %>
+        <span class="full-star">★</span>
+      <% else %>
+        <span class="empty-star">☆</span>
+      <% end -%>
+
+      <a href="<%= bookmark.uri %>"><%= truncate bookmark.title, :length => 70 %></a>
+    </td>
     <td><%= link_to 'Show', bookmark %></td>
     <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
     <td><%= link_to 'Destroy', bookmark, confirm: 'Are you sure?', method: :delete %></td>
