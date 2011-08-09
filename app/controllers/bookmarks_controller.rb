@@ -16,8 +16,7 @@ class BookmarksController < ApplicationController
       order_by :created_day, :desc
     end
     @bookmarks = @search.results
-    @tags = current_user.bookmarks.tag_counts_on(:tags)
-                        .order('count desc').limit(30)
+    @tags = current_user.bookmarks.tag_counts_on(:tags).order('count desc').limit(30)
     respond_with @bookmarks
   end
 
