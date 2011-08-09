@@ -25,6 +25,7 @@ gem "sunspot_with_kaminari", '~> 0.1'
 gem 'kaminari'
 gem 'resque', :require => "resque/server"
 gem "carrierwave"
+gem 'dalli'
 
 # Use unicorn as the web server
 # gem 'unicorn'

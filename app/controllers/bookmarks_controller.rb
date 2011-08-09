@@ -1,6 +1,7 @@
 class BookmarksController < ApplicationController
   respond_to :html, :json
   before_filter :authenticate_user!
+  helper_method :bookmark
 
   def index
     @search = Bookmark.search(:include => [:tags]) do
@@ -11,45 +12,44 @@ class BookmarksController < ApplicationController
       facet(:created_day, :sort => :index) if params[:month].present?
       with(:created_day, params[:day]) if params[:day].present?
       paginate :page => params[:page], :per_page => 25
+      order_by :created_day, :desc
     end
-
-    # @bookmarks = @search.results
-    # @bookmarks = current_user.bookmarks.page params[:page]
-    # @bookmarks
-
-    respond_with @search
+    @bookmarks = @search.results
+    respond_with @bookmarks
   end
 
   def show
-    @bookmark = current_user.bookmarks.find(params[:id])
-    respond_with @bookmark
+    respond_with bookmark
   end
 
   def new
-    @bookmark = current_user.bookmarks.build params[:bookmark]
-    respond_with @bookmark
+    respond_with bookmark
   end
 
   def edit
-    @bookmark = current_user.bookmarks.find(params[:id])
-    respond_with @bookmark
+    respond_with bookmark
   end
 
   def create
-    @bookmark = current_user.bookmarks.build params[:bookmark]
-    @bookmark.save
-    respond_with @bookmark
+    bookmark.save
+    respond_with bookmark
   end
 
   def update
-    @bookmark = current_user.bookmarks.find(params[:id])
-    @bookmark.update_attributes params[:bookmark]
-    respond_with @bookmark
+    bookmark.update_attributes params[:bookmark]
+    respond_with bookmark
   end
 
   def destroy
-    @bookmark = current_user.bookmarks.find(params[:id])
-    @bookmark.destroy
-    respond_with @bookmark
+    bookmark.destroy
+    respond_with bookmark
+  end
+
+  def bookmark
+    @bookmark ||= if params[:id].present?
+      current_user.bookmarks.find params[:id]
+    else
+      current_user.bookmarks.build params[:bookmark]
+    end
   end
 end

@@ -46,6 +46,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
+    dalli (1.0.5)
     erubis (2.7.0)
     escape (0.0.4)
     execjs (1.2.4)
@@ -151,6 +152,7 @@ DEPENDENCIES
   acts-as-taggable-on
   carrierwave
   coffee-rails (~> 3.1.0.rc)
+  dalli
   jquery-rails
   kaminari
   nokogiri

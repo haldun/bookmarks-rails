@@ -3,10 +3,9 @@
 <head>
   <title>Bookmarklove</title>
   <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller_name %>">
 <div id="user_nav">
   <% if current_user %>
     Logged in as <%= current_user.email %>.
@@ -23,5 +22,6 @@
 
 <%= yield %>
 
+<%= javascript_include_tag "application" %>
 </body>
 </html>

@@ -2,7 +2,7 @@ class Bookmark < ActiveRecord::Base
   belongs_to :user
   acts_as_taggable_on :tags
   validates_presence_of :uri
-  before_save :generate_uri_digest
+  validates_uniqueness_of :uri, :scope => :user_id
   default_scope order('created_at desc')
 
   searchable do
@@ -12,6 +12,10 @@ class Bookmark < ActiveRecord::Base
     integer :user_id
     date :created_month
     date :created_day
+  end
+
+  def tags_json
+    tags.map { |t| {:name => t.name, :id => t.name} }.to_json
   end
 
   def created_month
