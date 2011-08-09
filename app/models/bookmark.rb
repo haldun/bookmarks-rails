@@ -29,4 +29,12 @@ class Bookmark < ActiveRecord::Base
   def generate_uri_digest
     self.uri_digest = Digest::MD5.hexdigest(self.uri)
   end
+
+  def status
+    case code
+      when 200 then :ok
+      when 301, 302 then :redirected
+      when 404 then :gone
+    end
+  end
 end

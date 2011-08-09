@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110809062500) do
+ActiveRecord::Schema.define(:version => 20110809120454) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20110809062500) do
     t.datetime "cached_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "code"
+    t.datetime "checked_at"
   end
 
   add_index "bookmarks", ["is_private"], :name => "index_bookmarks_on_is_private"

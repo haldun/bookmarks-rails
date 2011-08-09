@@ -138,6 +138,9 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.8.2)
       ansi (>= 1.2.2)
+    typhoeus (0.2.4)
+      mime-types
+      mime-types
     tzinfo (0.3.29)
     uglifier (1.0.0)
       execjs (>= 0.3.0)
@@ -164,4 +167,5 @@ DEPENDENCIES
   sunspot_rails
   sunspot_with_kaminari (~> 0.1)
   turn
+  typhoeus
   uglifier

@@ -7,7 +7,7 @@ class BookmarksController < ApplicationController
     @search = Bookmark.search(:include => [:tags]) do
       fulltext params[:q]
       with(:tag_list).all_of(params[:tags]) if params[:tags].present?
-      without(:tag_list).any_of(params[:exclude].split(',')[0..3]) if params[:exclude].present?
+      # without(:tag_list).any_of(params[:exclude].split(',')[0..3]) if params[:exclude].present?
       with(:user_id, current_user.id)
       facet(:created_month, :sort => :index)
       with(:created_month, params[:month]) if params[:month].present?
@@ -35,12 +35,16 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    bookmark.save
+    if bookmark.save
+      Resque.enqueue(CacheBookmark, bookmark.id)
+    end
     respond_with bookmark
   end
 
   def update
-    bookmark.update_attributes params[:bookmark]
+    if bookmark.update_attributes params[:bookmark]
+      Resque.enqueue(CacheBookmark, bookmark.id)
+    end
     respond_with bookmark
   end
 

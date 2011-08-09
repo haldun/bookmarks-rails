@@ -26,6 +26,7 @@ gem 'kaminari'
 gem 'resque', :require => "resque/server"
 gem "carrierwave"
 gem 'dalli'
+gem 'typhoeus'
 
 # Use unicorn as the web server
 # gem 'unicorn'

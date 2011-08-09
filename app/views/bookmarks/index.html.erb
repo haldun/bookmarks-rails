@@ -25,7 +25,8 @@
     <% for row in @search.facet(:created_day).rows.reverse! %>
       <li>
         <% if params[:day].blank? %>
-          <%= link_to row.value.strftime('%e %B'), :day => row.value %> (<%= row.count %>)
+          <%= link_to row.value.strftime('%e %B'), :day => row.value %>
+              (<%= row.count %>)
         <% else %>
           <strong><%= row.value %></strong> (<%= link_to "✖", :day => nil %>)
         <% end %>
@@ -42,33 +43,29 @@
       <% if params[:tags].include? tag.name %>
         <%= link_to '−', bookmarks_path(:tags => params[:tags] - [tag.name]) %>
       <% else %>
-        <%= link_to '⊕', bookmarks_path(:tags => params[:tags] + [tag.name]), :class => 'plus' %>
+        <%= link_to '⊕', bookmarks_path(:tags => params[:tags] + [tag.name]),
+                    :class => 'plus' %>
       <% end -%>
     <% end -%>
     •
   <% end %>
 </div>
 
+<h2>
 <% if params[:month].present? %>
-  <h2><%= params[:month].to_date.strftime '%B %Y' %></h2>
+  <%= params[:month].to_date.strftime '%B %Y' %>
+<% elsif params[:day].present? %>
+  <%= params[:day].to_date.strftime '%e %B %Y' %>
+<% elsif params[:tags].present? %>
+  <%- params[:tags].each do |tag| %>
+    <%= link_to tag, bookmarks_path(:tags => [tag]) %>
+    <%= link_to '[−]', bookmarks_path(:tags => params[:tags] - [tag]),
+                       :class => 'minus' %>
+  <% end -%>
+<% elsif params[:q].present? %>
+  “<%= params[:q] %>”
 <% end -%>
-
-<% if params[:day].present? %>
-  <h2><%= params[:day].to_date.strftime '%e %B %Y' %></h2>
-<% end -%>
-
-<% if params[:tags].present? %>
-  <h2>
-    <%- params[:tags].each do |tag| %>
-      <%= link_to tag, bookmarks_path(:tags => [tag]) %>
-      <%= link_to '[−]', bookmarks_path(:tags => params[:tags] - [tag]), :class => 'minus' %>
-    <% end -%>
-  </h2>
-<% end -%>
-
-<% if params[:q].present? %>
-  <h2>“<%= params[:q] %>”</h2>
-<% end -%>
+</h2>
 
 <table>
   <tr>
@@ -87,6 +84,7 @@
         <span class="empty-star">☆</span>
       <% end -%>
 
+      <%= bookmark.status %>
       <a href="<%= bookmark.uri %>"><%= truncate bookmark.title, :length => 70 %></a>
     </td>
     <td><%= link_to 'Show', bookmark %></td>
