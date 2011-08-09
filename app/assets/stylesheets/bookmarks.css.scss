@@ -25,3 +25,23 @@ h3 {
 .empty-star {
   color: #444;
 }
+
+h2 {
+  a {
+    text-decoration: none;
+  }
+}
+
+a.minus, a.plus {
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+  line-height: 2em;
+  text-decoration: none;
+}
+
+a.plus {
+  color: blue;
+  font-weight: normal;
+}
+

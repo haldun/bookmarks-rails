@@ -37,27 +37,36 @@
 
   <h3>Tags</h3>
   <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-    <%= link_to tag.name, bookmarks_path(:tags => tag.name), :class => css_class %>
+    <%= link_to tag.name, bookmarks_path(:tags => [tag.name]), :class => css_class %>
     <% if params[:tags].present? %>
-      <%= link_to '⊕', bookmarks_path(:tags => raw(params[:tags] + ',' + tag.name)) %>
+      <% if params[:tags].include? tag.name %>
+        <%= link_to '−', bookmarks_path(:tags => params[:tags] - [tag.name]) %>
+      <% else %>
+        <%= link_to '⊕', bookmarks_path(:tags => params[:tags] + [tag.name]), :class => 'plus' %>
+      <% end -%>
     <% end -%>
-    ・
+    •
   <% end %>
 </div>
 
-<% if params[:month] %>
+<% if params[:month].present? %>
   <h2><%= params[:month].to_date.strftime '%B %Y' %></h2>
 <% end -%>
 
-<% if params[:day] %>
+<% if params[:day].present? %>
   <h2><%= params[:day].to_date.strftime '%e %B %Y' %></h2>
 <% end -%>
 
-<% if params[:tags] %>
-  <h2><%= params[:tags].split(',').join(', ') %></h2>
+<% if params[:tags].present? %>
+  <h2>
+    <%- params[:tags].each do |tag| %>
+      <%= link_to tag, bookmarks_path(:tags => [tag]) %>
+      <%= link_to '[−]', bookmarks_path(:tags => params[:tags] - [tag]), :class => 'minus' %>
+    <% end -%>
+  </h2>
 <% end -%>
 
-<% if params[:q] %>
+<% if params[:q].present? %>
   <h2>“<%= params[:q] %>”</h2>
 <% end -%>
 
