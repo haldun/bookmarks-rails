@@ -7,7 +7,6 @@ class BookmarksController < ApplicationController
     @search = Bookmark.search(:include => [:tags]) do
       fulltext params[:q]
       with(:tag_list).all_of(params[:tags]) if params[:tags].present?
-      # without(:tag_list).any_of(params[:exclude].split(',')[0..3]) if params[:exclude].present?
       with(:user_id, current_user.id)
       facet(:created_month, :sort => :index)
       with(:created_month, params[:month]) if params[:month].present?
@@ -17,8 +16,7 @@ class BookmarksController < ApplicationController
       order_by :created_day, :desc
     end
     @bookmarks = @search.results
-    @tags = current_user.bookmarks.tag_counts_on(:tags)
-                        .order('count desc').limit(30)
+    @tags = current_user.bookmarks.tag_counts_on(:tags).order('count desc').limit(30)
     respond_with @bookmarks
   end
 
