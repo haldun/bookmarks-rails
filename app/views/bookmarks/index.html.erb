@@ -6,6 +6,9 @@
 <% end %>
 
 <div id="facets">
+  <h3>Bookmarklets</h3>
+
+
   <h3>Timeline</h3>
   <ul>
     <% for row in @search.facet(:created_month).rows.reverse! %>
@@ -13,7 +16,7 @@
         <% if params[:month].blank? %>
           <%= link_to row.value.strftime("%Y %B"), :q => params[:q], :month => row.value %> (<%= row.count %>)
         <% else %>
-          <strong><%= row.value %></strong> (<%= link_to "✖", :month => nil %>)
+          <strong><%= row.value.strftime("%Y %B") %></strong> (<%= link_to "✖", :month => nil %>)
         <% end %>
       </li>
     <% end %>

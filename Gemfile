@@ -34,6 +34,7 @@ group :test do
   gem "capybara"
   gem "guard-rspec"
   gem 'turn', :require => false
+  gem 'database_cleaner'
 end
 
 # Use unicorn as the web server

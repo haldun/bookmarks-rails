@@ -12,8 +12,8 @@ class BookmarksController < ApplicationController
       with(:created_month, params[:month]) if params[:month].present?
       facet(:created_day, :sort => :index) if params[:month].present?
       with(:created_day, params[:day]) if params[:day].present?
-      paginate :page => params[:page], :per_page => 25
       order_by :created_day, :desc
+      paginate :page => params[:page], :per_page => 25
     end
     @bookmarks = @search.results
     @tags = current_user.bookmarks.tag_counts_on(:tags).order('count desc').limit(30)

@@ -56,6 +56,7 @@ GEM
       execjs
     coffee-script-source (1.1.2)
     dalli (1.0.5)
+    database_cleaner (0.6.7)
     diff-lcs (1.1.2)
     erubis (2.7.0)
     escape (0.0.4)
@@ -198,6 +199,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.1.0.rc)
   dalli
+  database_cleaner
   factory_girl_rails
   guard-rspec
   jquery-rails

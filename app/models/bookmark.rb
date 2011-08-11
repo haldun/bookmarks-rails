@@ -12,6 +12,7 @@ class Bookmark < ActiveRecord::Base
     integer :user_id
     date :created_month
     date :created_day
+    time :created_at
   end
 
   def tags_json
