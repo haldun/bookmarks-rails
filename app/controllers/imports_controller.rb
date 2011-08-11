@@ -13,12 +13,12 @@ class ImportsController < ApplicationController
   end
 
   def new
-    @import = current_user.imports.new
+    @import = Import.new
     respond_with @import
   end
 
   def create
-    @import = current_user.imports.new(params[:import])
+    @import = current_user.imports.build(params[:import])
     if @import.save
       Resque.enqueue ImportBookmark, @import.id
     end

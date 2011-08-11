@@ -7,7 +7,6 @@ class TagsController < ApplicationController
                                   .order('count desc')
                                   .limit(20)
     respond_to do |format|
-      format.html
       format.json { render :json => @tags.map(&:attributes) }
     end
   end
