@@ -7,7 +7,6 @@ gem 'rails', '3.1.0.rc5'
 
 gem 'sqlite3'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,6 +27,15 @@ gem "carrierwave"
 gem 'dalli'
 gem 'typhoeus'
 
+gem "rspec-rails", :group => [:test, :development]
+
+group :test do
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
+  gem 'turn', :require => false
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -36,8 +44,3 @@ gem 'typhoeus'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
-group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
-end
